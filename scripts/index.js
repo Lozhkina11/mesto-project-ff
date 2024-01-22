@@ -43,15 +43,6 @@ function deleteCard(card) {
   card.remove()
 } 
 
-// placesList.addEventListener("click", function (event) {
-//   if (event.target.classList.contains("card__delete-button")) {
-//     const listItem = event.target.closest(".places__item");
-//     if (listItem) {
-//       listItem.remove();
-//     }
-//   }
-// });
-
 // @todo: Вывести карточки на страницу
 for (let i = 0; i < initialCards.length; i += 1) {
   const newCard = createCard(initialCards[i].name, initialCards[i].link);
