@@ -2,11 +2,9 @@ import("../pages/index.css");
 import {
   createCard,
   deleteCard,
-  addCloseEventListeners,
-  like,
-  keyHandler
+  like
 } from "../components/card.js";
-import { openModal, closeModal } from "../components/modal.js";
+import { openModal, closeModal,  addCloseEventListeners, keyHandler} from "../components/modal.js";
 import { initialCards } from "../scripts/cards.js";
 
 const imageUser = new URL("../images/avatar.jpg", import.meta.url);
@@ -113,6 +111,3 @@ addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
 addCloseEventListeners(popupEdit)
 addCloseEventListeners(popupImage)
 addCloseEventListeners(popupAddCard)
-
-
-document.addEventListener("keydown", keyHandler);

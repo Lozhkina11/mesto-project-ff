@@ -32,29 +32,8 @@ function createCard(title, linkImg, openPopupListener, like, deleteCard) {
 
 // @todo: Функция удаления карточки
 
-
-
 const placesItems = document.querySelectorAll(".places__item");
 const popupImage = document.querySelector(".popup_type_image");
 
-function addCloseEventListeners(overlay) {
 
-  const popupCloseButton = overlay.querySelector(".popup__close");
-
-  popupCloseButton.addEventListener("click", function (event) {
-    closeModal(overlay); // Скрываем при клике на кнопку
-  });
-
-  overlay.addEventListener("click", function (event) {
-    if (event.target === overlay) {
-      closeModal(overlay); // Скрываем вне области окна
-    }
-  });
-}
-function keyHandler(evt) {
-  if (evt.key === "Escape") {
-    closeModal(document.querySelector('.popup_is-opened')); // Esc
-  }
-}
-
-export { createCard, deleteCard, addCloseEventListeners, like, keyHandler};
+export { createCard, deleteCard, like};
