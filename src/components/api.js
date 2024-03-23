@@ -71,15 +71,15 @@ export const userInfo = () => {
   }).then((res) => res.json());
 };
 
-// export const updateUserAvatar = (avatarLink) => {
-//   return fetch("https://mesto.nomoreparties.co/v1/wff-cohort-8/users/me/avatar", {
-//     method: "PATCH",
-//     headers: {
-//       authorization: "90afa859-dbf5-4c4a-9511-58c7fa1eb5ec",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       avatarLink
-//     }),
-//   }).then((res) => res.json());
-// };
+export const updateUserAvatar = (avatarLink) => {
+  return fetch("https://mesto.nomoreparties.co/v1/wff-cohort-8/users/me/avatar", {
+    method: "PATCH",
+    headers: {
+      authorization: "90afa859-dbf5-4c4a-9511-58c7fa1eb5ec",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      avatarLink
+    }),
+  }).then((res) => res.json());
+};
