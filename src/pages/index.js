@@ -1,11 +1,19 @@
 import("../pages/index.css");
+import { createCard, deleteCard, like } from "../components/card.js";
 import {
-  createCard,
-  deleteCard,
-  like
-} from "../components/card.js";
-import { openModal, closeModal,  addCloseEventListeners, keyHandler} from "../components/modal.js";
-import { initialCards } from "../scripts/cards.js";
+  openModal,
+  closeModal,
+  addCloseEventListeners,
+  keyHandler,
+} from "../components/modal.js";
+
+import FormValidator from "../components/validation.js";
+import {
+  addCard,
+  getCards,
+  updateUserInfo,
+  userInfo,
+} from "../components/api.js";
 
 const imageUser = new URL("../images/avatar.jpg", import.meta.url);
 const profileImage = document.querySelector(".profile__image");
@@ -23,18 +31,24 @@ function getOpenPopupListener(titleCard, imgSrc) {
     openModal(popupImage);
   };
 }
-
-// @todo: Вывести карточки на страницу
-for (let i = 0; i < initialCards.length; i += 1) {
-  const newCard = createCard(
-    initialCards[i].name,
-    initialCards[i].link,
-    getOpenPopupListener(initialCards[i].name, initialCards[i].link),
-    like,
-    deleteCard
-  );
-  placesList.appendChild(newCard);
-}
+getCards().then((initialCards) => {
+  for (let i = 0; i < initialCards.length; i += 1) {
+    const newCard = createCard(
+      initialCards[i].owner._id.includes("7602a9166d2e2ec83e5c2ca3"),
+      initialCards[i].name,
+      initialCards[i].link,
+      initialCards[i].likes.length,
+      getOpenPopupListener(initialCards[i].name, initialCards[i].link),
+      like,
+      deleteCard,
+      initialCards[i]._id,
+      initialCards[i].likes.some(
+        (item) => item._id === "7602a9166d2e2ec83e5c2ca3"
+      )
+    );
+    placesList.appendChild(newCard);
+  }
+});
 
 const profileEditButton = document.querySelector(".profile__edit-button"); // оверлей
 const popupEdit = document.querySelector(".popup_type_edit"); // мод.окно
@@ -57,6 +71,16 @@ profileButton.addEventListener("click", function (event) {
   openModal(popupAddCard); // Показываем при клике на кнопку
 });
 
+const avatarUpdateButton = document.querySelector(".popup__update");
+
+// const popupAvatarEditForm = document.querySelector(".popup__form_avatar");
+const popupAvatarEditForm = document.querySelector(".popup_avatar");
+
+const avatarInput = popupAvatarEditForm.querySelector(
+  ".popup__input_type_avatar"
+);
+
+
 const popupForm = document.querySelector(".popup_type_edit .popup__form");
 // Находим поля формы в DOM
 const nameInput = popupForm.querySelector(".popup__input_type_name");
@@ -64,17 +88,36 @@ const jobInput = popupForm.querySelector(".popup__input_type_description");
 const nameElement = document.querySelector(".profile__title");
 const descriptionElement = document.querySelector(".profile__description");
 
-function handleFormSubmit(evt) {
-  evt.preventDefault();
-  const newName = nameInput.value;
-  const newDescription = jobInput.value;
+userInfo().then((data) => {
+  // const newName = nameInput.value;
+  const newName = data.name;
+  const newDescription = data.about;
+  // console.log(newDescription);
   nameElement.textContent = newName;
   descriptionElement.textContent = newDescription;
 
   nameInput.value = "";
   jobInput.value = "";
+});
+avatarUpdateButton.addEventListener("click", function (event) {
+  openModal(popupAvatarEditForm);
+});
 
-  closeModal(popupEdit);
+function handleFormSubmit(evt) {
+  evt.preventDefault();
+  updateUserInfo(nameInput.value, jobInput.value).then((data) => {
+    // const newName = nameInput.value;
+    const newName = data.name;
+    const newDescription = data.about;
+    // console.log(newDescription);
+    nameElement.textContent = newName;
+    descriptionElement.textContent = newDescription;
+
+    nameInput.value = "";
+    jobInput.value = "";
+
+    closeModal(popupEdit);
+  });
 }
 
 popupForm.addEventListener("submit", handleFormSubmit);
@@ -82,32 +125,71 @@ popupForm.addEventListener("submit", handleFormSubmit);
 const addCardPopupForm = document.querySelector(
   ".popup_type_new-card .popup__form"
 );
+const updateAvatarPopupForm = document.querySelector(
+  "popup__form popup__form_avatar"
+);
 
 const cardNameInput = addCardPopupForm.querySelector(
   ".popup__input_type_card-name"
 );
-const cardLinkInput = addCardPopupForm.querySelector(
-  ".popup__input_type_url"
-);
+const cardLinkInput = addCardPopupForm.querySelector(".popup__input_type_url");
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const newCard = createCard(
-    cardNameInput.value,
-    cardLinkInput.value,
-    getOpenPopupListener(cardNameInput.value, cardLinkInput.value),
-    like,
-    deleteCard
-  );
-  placesList.prepend(newCard);
+  addCard(cardNameInput.value, cardLinkInput.value).then((data) => {
+    const newCard = createCard(
+      true,
+      cardNameInput.value,
+      cardLinkInput.value,
+      0,
+      getOpenPopupListener(cardNameInput.value, cardLinkInput.value),
+      like,
+      deleteCard
+    );
+    placesList.prepend(newCard);
 
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
+    cardNameInput.value = "";
+    cardLinkInput.value = "";
 
-  closeModal(popupAddCard);
+    closeModal(popupAddCard);
+  });
+}
+
+function handleAvatarFormSubmit(evt) {
+  evt.preventDefault();
+  updateUserAvatar(avatarInput.value).then((data) => {
+    const newAvatar = avatarInput.value
+    profileImage.style.backgroundImage= newAvatar
+    // placesList.prepend(newAvatar);
+
+    avatarInput.value = "";
+
+    closeModal(popupAvatarEditForm);
+  });
 }
 
 addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
-addCloseEventListeners(popupEdit)
-addCloseEventListeners(popupImage)
-addCloseEventListeners(popupAddCard)
+
+updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
+
+addCloseEventListeners(popupEdit);
+addCloseEventListeners(popupImage);
+addCloseEventListeners(popupAddCard);
+// addCloseEventListeners(popupAvatarEditForm);
+
+const validationConfig = {
+  inputSelector: ".popup__input",
+  activeButtonClass: "active-button",
+  errorClass: "error",
+  inputErrorClass: "input-error",
+  inactiveButtonClass: "inactive-button",
+};
+
+const formElements = document.querySelectorAll(".popup__form");
+formElements.forEach((formElement) => {
+  const formValidator = new FormValidator(validationConfig, formElement);
+
+  // formValidator.enableValidation();
+});
+
+// clearValidation(, validationConfig);

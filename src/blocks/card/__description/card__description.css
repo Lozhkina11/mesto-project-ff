@@ -4,4 +4,22 @@
   align-items: center;
   background: #fff;
   padding: 25px 20px;
+  box-sizing: border-box;
+  width: 100%;
 }
+
+.card__like-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__like-count{
+  font-size: 13px;
+  padding-left: 3px;
+  padding-top: 3px;
+  width: 10px;
+  height: 13px;
+  font-weight: 400;
+}
+
