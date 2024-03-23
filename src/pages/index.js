@@ -169,13 +169,13 @@ function handleAvatarFormSubmit(evt) {
 }
 
 addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
-
-updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
-
 addCloseEventListeners(popupEdit);
 addCloseEventListeners(popupImage);
 addCloseEventListeners(popupAddCard);
-// addCloseEventListeners(popupAvatarEditForm);
+addCloseEventListeners(popupAvatarEditForm);
+
+
+updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
 
 const validationConfig = {
   inputSelector: ".popup__input",
