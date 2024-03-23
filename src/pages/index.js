@@ -28,10 +28,9 @@ const profileImage = document.querySelector(".profile__image");
 userAvatar().then(
   (data) => (profileImage.style.backgroundImage = `url(${data.avatar})`)
 );
-// profileImage.style.backgroundImage = `url(${imageUser})`;
 
 const placesList = document.querySelector(".places__list");
-const addCardButton = document.querySelector(".profile__add-button");
+
 
 function getOpenPopupListener(titleCard, imgSrc) {
   return function (evt) {
@@ -42,6 +41,7 @@ function getOpenPopupListener(titleCard, imgSrc) {
     openModal(popupImage);
   };
 }
+
 getCards().then((initialCards) => {
   for (let i = 0; i < initialCards.length; i += 1) {
     const newCard = createCard(
@@ -214,3 +214,11 @@ formElements.forEach((formElement) => {
 // clearValidation(, validationConfig);
 
 updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit);
+
+
+// Promise.all([userInfo(), getCards()])
+// .then(([useData, cardsData]) => {
+//   setUserInfo(profileData),
+//   renderCards(cardsData)
+// })
+// .catch((error)=> console.error('Look at this Error ===>', error))

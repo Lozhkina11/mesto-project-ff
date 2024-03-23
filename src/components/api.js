@@ -5,6 +5,7 @@ const api = {
     "Content-Typeapi": "application/json",
   },
 };
+
 export const addCard = (name, link) => {
   return fetch(`${api.baseUrl}/cards`, {
     method: "POST",
@@ -19,7 +20,6 @@ export const addCard = (name, link) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
-  
 };
 
 export const getCards = () => {
@@ -34,13 +34,10 @@ export const getCards = () => {
 };
 
 export const deleteMyCard = (cardId) => {
-  return fetch(
-    `${api.baseUrl}/cards/${cardId}`,
-    {
-      method: "DELETE",
-      headers: api.headers,
-    }
-  ).then((res) => {
+  return fetch(`${api.baseUrl}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: api.headers,
+  }).then((res) => {
     if (res.ok) {
       return res.json();
     }
@@ -49,13 +46,10 @@ export const deleteMyCard = (cardId) => {
 };
 
 export const addLike = (cardId) => {
-  return fetch(
-    `${api.baseUrl}/cards/likes/${cardId}`,
-    {
-      method: "PUT",
-      headers: api.headers,
-    }
-  ).then((res) => {
+  return fetch(`${api.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: api.headers,
+  }).then((res) => {
     if (res.ok) {
       return res.json();
     }
@@ -63,13 +57,10 @@ export const addLike = (cardId) => {
   });
 };
 export const removeLike = (cardId) => {
-  return fetch(
-    `${api.baseUrl}/cards/likes/${cardId}`,
-    {
-      method: "DELETE",
-      headers: api.headers,
-    }
-  ).then((res) => {
+  return fetch(`${api.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: api.headers,
+  }).then((res) => {
     if (res.ok) {
       return res.json();
     }
@@ -116,19 +107,16 @@ export const userAvatar = () => {
 };
 
 export const updateUserAvatar = (avatar) => {
-  return fetch(
-    `${api.baseUrl}/users/me/avatar`,
-    {
-      method: "PATCH",
-      headers: api.headers,
-      body: JSON.stringify({
-        avatar,
-      }),
-    }
-  ).then((res) => {
+  return fetch(`${api.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: api.headers,
+    body: JSON.stringify({
+      avatar,
+    }),
+  }).then((res) => {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  });;
+  });
 };
