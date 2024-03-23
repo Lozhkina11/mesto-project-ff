@@ -19,10 +19,16 @@ import {
 
 // const imageUser = new URL("../images/avatar.jpg", import.meta.url);
 
-
+function showLoader(usingButton, loaderText) {
+  
+  const targetButton = document.querySelector(usingButton);
+  targetButton.textContent = loaderText;
+}
 
 const profileImage = document.querySelector(".profile__image");
-userAvatar().then((data)=>profileImage.style.backgroundImage = `url(${data.avatar})`)
+userAvatar().then(
+  (data) => (profileImage.style.backgroundImage = `url(${data.avatar})`)
+);
 // profileImage.style.backgroundImage = `url(${imageUser})`;
 
 const placesList = document.querySelector(".places__list");
@@ -81,7 +87,6 @@ const avatarUpdateButton = document.querySelector(".popup__update");
 
 // const popupAvatarEditForm = document.querySelector(".popup_avatar");
 
-
 const popupForm = document.querySelector(".popup_type_edit .popup__form");
 // Находим поля формы в DOM
 const nameInput = popupForm.querySelector(".popup__input_type_name");
@@ -102,31 +107,30 @@ userInfo().then((data) => {
 });
 const popupAvatarEditForm = document.querySelector(".popup_avatar");
 avatarUpdateButton.addEventListener("click", function (event) {
-  
-  
   // const avatarInput = document.querySelector(".popup__input_type_avatar");
- 
-  openModal(popupAvatarEditForm);
-  
-});
 
- 
+  openModal(popupAvatarEditForm);
+});
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
-  updateUserInfo(nameInput.value, jobInput.value).then((data) => {
-    // const newName = nameInput.value;
-    const newName = data.name;
-    const newDescription = data.about;
-    // console.log(newDescription);
-    nameElement.textContent = newName;
-    descriptionElement.textContent = newDescription;
+  showLoader("#info-save-btn", "Сохранение...");
+  updateUserInfo(nameInput.value, jobInput.value)
+    .then((data) => {
+      // const newName = nameInput.value;
+      const newName = data.name;
+      const newDescription = data.about;
+      // console.log(newDescription);
+      nameElement.textContent = newName;
+      descriptionElement.textContent = newDescription;
 
-    nameInput.value = "";
-    jobInput.value = "";
+      nameInput.value = "";
+      jobInput.value = "";
 
-    closeModal(popupEdit);
-  });
+      closeModal(popupEdit);
+    })
+    .catch((err) => console.error("Ошибка!", err))
+    .finally(() => showLoader("#info-save-btn", "Сохранить"));
 }
 
 popupForm.addEventListener("submit", handleFormSubmit);
@@ -137,7 +141,6 @@ const addCardPopupForm = document.querySelector(
 const updateAvatarPopupForm = document.querySelector(".popup_avatar");
 // const updateAvatarPopupForm = document.querySelector(".popup__avatar_form");
 // const updateAvatarPopupForm = document.querySelector(".popup_avatar.popup__avatar_form");
-
 
 const cardNameInput = addCardPopupForm.querySelector(
   ".popup__input_type_card-name"
@@ -169,16 +172,15 @@ function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
   updateUserAvatar(avatarInput.value).then((data) => {
     // console.log(data);
-    const newAvatar = data.avatar
+    const newAvatar = data.avatar;
     // console.log("newAvatar",newAvatar);
     // profileImage.style.backgroundImage= newAvatar
     profileImage.style.backgroundImage = `url(${newAvatar})`;
-    
+
     avatarInput.value = "";
 
     closeModal(popupAvatarEditForm);
   });
- 
 }
 
 addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
@@ -203,6 +205,5 @@ formElements.forEach((formElement) => {
 });
 
 // clearValidation(, validationConfig);
-
 
 updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit);
