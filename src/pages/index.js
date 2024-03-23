@@ -20,7 +20,6 @@ import {
 // const imageUser = new URL("../images/avatar.jpg", import.meta.url);
 
 function showLoader(usingButton, loaderText) {
-  
   const targetButton = document.querySelector(usingButton);
   targetButton.textContent = loaderText;
 }
@@ -149,38 +148,46 @@ const cardLinkInput = addCardPopupForm.querySelector(".popup__input_type_url");
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  addCard(cardNameInput.value, cardLinkInput.value).then((data) => {
-    const newCard = createCard(
-      true,
-      cardNameInput.value,
-      cardLinkInput.value,
-      0,
-      getOpenPopupListener(cardNameInput.value, cardLinkInput.value),
-      like,
-      deleteCard
-    );
-    placesList.prepend(newCard);
+  showLoader("#img-save-btn", "Сохранение...");
+  addCard(cardNameInput.value, cardLinkInput.value)
+    .then((data) => {
+      const newCard = createCard(
+        true,
+        cardNameInput.value,
+        cardLinkInput.value,
+        0,
+        getOpenPopupListener(cardNameInput.value, cardLinkInput.value),
+        like,
+        deleteCard
+      );
+      placesList.prepend(newCard);
 
-    cardNameInput.value = "";
-    cardLinkInput.value = "";
+      cardNameInput.value = "";
+      cardLinkInput.value = "";
 
-    closeModal(popupAddCard);
-  });
+      closeModal(popupAddCard);
+    })
+    .catch((err) => console.error("Ошибка!", err))
+    .finally(() => showLoader("#img-save-btn", "Сохранить"));
 }
 const avatarInput = document.querySelector(".popup__input_type_avatar");
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
-  updateUserAvatar(avatarInput.value).then((data) => {
-    // console.log(data);
-    const newAvatar = data.avatar;
-    // console.log("newAvatar",newAvatar);
-    // profileImage.style.backgroundImage= newAvatar
-    profileImage.style.backgroundImage = `url(${newAvatar})`;
+  showLoader("#avatar-save-btn", "Сохранение...");
+  updateUserAvatar(avatarInput.value)
+    .then((data) => {
+      // console.log(data);
+      const newAvatar = data.avatar;
+      // console.log("newAvatar",newAvatar);
+      // profileImage.style.backgroundImage= newAvatar
+      profileImage.style.backgroundImage = `url(${newAvatar})`;
 
-    avatarInput.value = "";
+      avatarInput.value = "";
 
-    closeModal(popupAvatarEditForm);
-  });
+      closeModal(popupAvatarEditForm);
+    })
+    .catch((err) => console.error("Ошибка!", err))
+    .finally(() => showLoader("#avatar-save-btn", "Сохранить"));
 }
 
 addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
