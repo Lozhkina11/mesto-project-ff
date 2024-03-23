@@ -13,12 +13,17 @@ import {
   getCards,
   updateUserAvatar,
   updateUserInfo,
+  userAvatar,
   userInfo,
 } from "../components/api.js";
 
-const imageUser = new URL("../images/avatar.jpg", import.meta.url);
+// const imageUser = new URL("../images/avatar.jpg", import.meta.url);
+
+
+
 const profileImage = document.querySelector(".profile__image");
-profileImage.style.backgroundImage = `url(${imageUser})`;
+userAvatar().then((data)=>profileImage.style.backgroundImage = `url(${data.avatar})`)
+// profileImage.style.backgroundImage = `url(${imageUser})`;
 
 const placesList = document.querySelector(".places__list");
 const addCardButton = document.querySelector(".profile__add-button");
@@ -165,11 +170,11 @@ function handleAvatarFormSubmit(evt) {
   updateUserAvatar(avatarInput.value).then((data) => {
     // console.log(data);
     const newAvatar = data.avatar
-    console.log(newAvatar);
+    // console.log("newAvatar",newAvatar);
     // profileImage.style.backgroundImage= newAvatar
-    // // placesList.prepend(newAvatar);
-
-    // avatarInput.value = "";
+    profileImage.style.backgroundImage = `url(${newAvatar})`;
+    
+    avatarInput.value = "";
 
     closeModal(popupAvatarEditForm);
   });
@@ -180,7 +185,7 @@ addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
 addCloseEventListeners(popupEdit);
 addCloseEventListeners(popupImage);
 addCloseEventListeners(popupAddCard);
-// addCloseEventListeners(popupAvatarEditForm);
+addCloseEventListeners(popupAvatarEditForm);
 
 const validationConfig = {
   inputSelector: ".popup__input",
