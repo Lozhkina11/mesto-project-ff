@@ -51,9 +51,6 @@ function createCard(
   cardImage.title = "Картинка, которая описывает место";
   likesCount.textContent = countLikes;
 
-  
-
-  // likeButton.addEventListener("click", like);
   likeButton.addEventListener("click", (event) =>
     like(event, cardId, likesCount)
   );
@@ -67,8 +64,6 @@ function createCard(
   );
   return cardElement;
 }
-
-// @todo: Функция удаления карточки
 
 const placesItems = document.querySelectorAll(".places__item");
 const popupImage = document.querySelector(".popup_type_image");
