@@ -11,6 +11,7 @@ import FormValidator from "../components/validation.js";
 import {
   addCard,
   getCards,
+  updateUserAvatar,
   updateUserInfo,
   userInfo,
 } from "../components/api.js";
@@ -73,13 +74,9 @@ profileButton.addEventListener("click", function (event) {
 
 const avatarUpdateButton = document.querySelector(".popup__update");
 
-// const popupAvatarEditForm = document.querySelector(".popup__form_avatar");
 const popupAvatarEditForm = document.querySelector(".popup_avatar");
 
-const avatarInput = popupAvatarEditForm.querySelector(
-  ".popup__input_type_avatar"
-);
-
+const avatarInput = document.querySelector(".popup__input_type_avatar");
 
 const popupForm = document.querySelector(".popup_type_edit .popup__form");
 // Находим поля формы в DOM
@@ -126,7 +123,7 @@ const addCardPopupForm = document.querySelector(
   ".popup_type_new-card .popup__form"
 );
 const updateAvatarPopupForm = document.querySelector(
-  "popup__form popup__form_avatar"
+  " popup_avatar popup__avatar_form"
 );
 
 const cardNameInput = addCardPopupForm.querySelector(
@@ -158,11 +155,12 @@ function handleAddCardFormSubmit(evt) {
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
   updateUserAvatar(avatarInput.value).then((data) => {
-    const newAvatar = avatarInput.value
-    profileImage.style.backgroundImage= newAvatar
-    // placesList.prepend(newAvatar);
+    console.log(data);
+    // const newAvatar = avatarInput.value
+    // profileImage.style.backgroundImage= newAvatar
+    // // placesList.prepend(newAvatar);
 
-    avatarInput.value = "";
+    // avatarInput.value = "";
 
     closeModal(popupAvatarEditForm);
   });
@@ -173,9 +171,6 @@ addCloseEventListeners(popupEdit);
 addCloseEventListeners(popupImage);
 addCloseEventListeners(popupAddCard);
 addCloseEventListeners(popupAvatarEditForm);
-
-
-
 
 const validationConfig = {
   inputSelector: ".popup__input",
@@ -194,5 +189,4 @@ formElements.forEach((formElement) => {
 
 // clearValidation(, validationConfig);
 
-
-updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
+updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit());
