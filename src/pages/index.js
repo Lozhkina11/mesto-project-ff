@@ -175,7 +175,7 @@ addCloseEventListeners(popupAddCard);
 addCloseEventListeners(popupAvatarEditForm);
 
 
-updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
+
 
 const validationConfig = {
   inputSelector: ".popup__input",
@@ -193,3 +193,6 @@ formElements.forEach((formElement) => {
 });
 
 // clearValidation(, validationConfig);
+
+
+updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit)
