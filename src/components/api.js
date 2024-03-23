@@ -71,7 +71,7 @@ export const userInfo = () => {
   }).then((res) => res.json());
 };
 
-export const updateUserAvatar = (avatarLink) => {
+export const updateUserAvatar = (avatar) => {
   return fetch("https://mesto.nomoreparties.co/v1/wff-cohort-8/users/me/avatar", {
     method: "PATCH",
     headers: {
@@ -79,7 +79,7 @@ export const updateUserAvatar = (avatarLink) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      avatarLink
+      avatar
     }),
   }).then((res) => res.json());
 };

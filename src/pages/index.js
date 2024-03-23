@@ -74,9 +74,8 @@ profileButton.addEventListener("click", function (event) {
 
 const avatarUpdateButton = document.querySelector(".popup__update");
 
-const popupAvatarEditForm = document.querySelector(".popup_avatar");
+// const popupAvatarEditForm = document.querySelector(".popup_avatar");
 
-const avatarInput = document.querySelector(".popup__input_type_avatar");
 
 const popupForm = document.querySelector(".popup_type_edit .popup__form");
 // Находим поля формы в DOM
@@ -96,9 +95,17 @@ userInfo().then((data) => {
   nameInput.value = "";
   jobInput.value = "";
 });
+const popupAvatarEditForm = document.querySelector(".popup_avatar");
 avatarUpdateButton.addEventListener("click", function (event) {
+  
+  
+  // const avatarInput = document.querySelector(".popup__input_type_avatar");
+ 
   openModal(popupAvatarEditForm);
+  
 });
+
+ 
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -122,9 +129,10 @@ popupForm.addEventListener("submit", handleFormSubmit);
 const addCardPopupForm = document.querySelector(
   ".popup_type_new-card .popup__form"
 );
-const updateAvatarPopupForm = document.querySelector(
-  " popup_avatar popup__avatar_form"
-);
+const updateAvatarPopupForm = document.querySelector(".popup_avatar");
+// const updateAvatarPopupForm = document.querySelector(".popup__avatar_form");
+// const updateAvatarPopupForm = document.querySelector(".popup_avatar.popup__avatar_form");
+
 
 const cardNameInput = addCardPopupForm.querySelector(
   ".popup__input_type_card-name"
@@ -151,12 +159,13 @@ function handleAddCardFormSubmit(evt) {
     closeModal(popupAddCard);
   });
 }
-
+const avatarInput = document.querySelector(".popup__input_type_avatar");
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
   updateUserAvatar(avatarInput.value).then((data) => {
-    console.log(data);
-    // const newAvatar = avatarInput.value
+    // console.log(data);
+    const newAvatar = data.avatar
+    console.log(newAvatar);
     // profileImage.style.backgroundImage= newAvatar
     // // placesList.prepend(newAvatar);
 
@@ -164,13 +173,14 @@ function handleAvatarFormSubmit(evt) {
 
     closeModal(popupAvatarEditForm);
   });
+ 
 }
 
 addCardPopupForm.addEventListener("submit", handleAddCardFormSubmit);
 addCloseEventListeners(popupEdit);
 addCloseEventListeners(popupImage);
 addCloseEventListeners(popupAddCard);
-addCloseEventListeners(popupAvatarEditForm);
+// addCloseEventListeners(popupAvatarEditForm);
 
 const validationConfig = {
   inputSelector: ".popup__input",
@@ -189,4 +199,5 @@ formElements.forEach((formElement) => {
 
 // clearValidation(, validationConfig);
 
-updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit());
+
+updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit);
