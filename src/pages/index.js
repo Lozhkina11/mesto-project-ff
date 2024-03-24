@@ -4,7 +4,6 @@ import {
   openModal,
   closeModal,
   addCloseEventListeners,
-  keyHandler,
 } from "../components/modal.js";
 
 import {
@@ -12,7 +11,6 @@ import {
   getCards,
   updateUserAvatar,
   updateUserInfo,
-  userAvatar,
   userInfo,
 } from "../components/api.js";
 import { clearValidation, enableValidation } from "../components/validation.js";
@@ -24,7 +22,7 @@ function showLoader(usingButton, loaderText) {
 
 const placesList = document.querySelector(".places__list");
 
-// Открытие модалки с картинкой
+
 function getOpenPopupListener(titleCard, imgSrc) {
   return function (evt) {
     popupImage.querySelector(".popup__caption").textContent = titleCard;
@@ -64,9 +62,7 @@ Promise.all([userInfo(), getCards()])
         like,
         deleteCard,
         initialCards[i]._id,
-        initialCards[i].likes.some(
-          (item) => item._id === userId
-        )
+        initialCards[i].likes.some((item) => item._id === userId)
       );
       placesList.appendChild(newCard);
     }
@@ -106,7 +102,7 @@ profileButton.addEventListener("click", function (event) {
   cardLinkInput.value = "";
 });
 
-// Avatar block
+
 const avatarUpdateButton = document.querySelector(".popup__update");
 const popupAvatarEditForm = document.querySelector(".popup_avatar");
 const avatarInput = document.querySelector(".popup__input_type_avatar");

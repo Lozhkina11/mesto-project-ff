@@ -62,7 +62,6 @@ function createCard(
   return cardElement;
 }
 
-const placesItems = document.querySelectorAll(".places__item");
-const popupImage = document.querySelector(".popup_type_image");
+
 
 export { createCard, deleteCard, like };
