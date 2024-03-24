@@ -7,7 +7,6 @@ import {
   keyHandler,
 } from "../components/modal.js";
 
-import FormValidator from "../components/validation.js";
 import {
   addCard,
   getCards,
@@ -16,6 +15,7 @@ import {
   userAvatar,
   userInfo,
 } from "../components/api.js";
+import { clearValidation, enableValidation } from "../components/validation.js";
 
 
 function showLoader(usingButton, loaderText) {
@@ -27,6 +27,8 @@ function showLoader(usingButton, loaderText) {
 
 const placesList = document.querySelector(".places__list");
 
+
+// Открытие модалки с картинкой
 function getOpenPopupListener(titleCard, imgSrc) {
   return function (evt) {
     popupImage.querySelector(".popup__caption").textContent = titleCard;
@@ -88,6 +90,9 @@ profileEditButton.addEventListener("click", function (event) {
   openModal(popupEdit);
   nameInput.value = nameElement.textContent;
   jobInput.value = descriptionElement.textContent;
+  const formElement = popupEdit.querySelector(".popup__form")
+  clearValidation(formElement)
+  
 });
 
 profileButton.addEventListener("click", function (event) {
@@ -187,8 +192,9 @@ const validationConfig = {
 };
 
 const formElements = document.querySelectorAll(".popup__form");
+
 formElements.forEach((formElement) => {
-  const formValidator = new FormValidator(validationConfig, formElement);
+  const formValidator = enableValidation(validationConfig, formElement);
 });
 
 updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit);

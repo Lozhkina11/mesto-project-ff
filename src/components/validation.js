@@ -1,4 +1,4 @@
-export default function FormValidator(validationConfig, formElement) {
+export const enableValidation = (validationConfig, formElement) => {
   const formInputs = formElement.querySelectorAll(".popup__input");
   const submitButton = formElement.querySelector(".popup__button");
 
@@ -18,7 +18,7 @@ export default function FormValidator(validationConfig, formElement) {
 
   const isValid = (input) => {
     if (input.validity.patternMismatch) {
-      input.setCustomValidity(input.getAttribute('data-pattern-message'));
+      input.setCustomValidity(input.getAttribute("data-pattern-message"));
     } else {
       input.setCustomValidity("");
     }
@@ -61,8 +61,8 @@ export default function FormValidator(validationConfig, formElement) {
       toggleSubmitButton();
     });
   });
-return clearValidation (formElement);
-}
+  return clearValidation(formElement);
+};
 
 export function clearValidation(formElement) {
   const formInputs = formElement.querySelectorAll(".popup__input");
@@ -73,18 +73,17 @@ export function clearValidation(formElement) {
     const errorElement = formElement.querySelector(`.${element.id}-error`);
     errorElement.classList.remove("popup__error_active");
     errorElement.textContent = "";
+    element.setCustomValidity("");
   };
 
-  const clearValidation = () => {
+  const clearValidationFunc = () => {
     formInputs.forEach((input) => {
       hideInputError(input);
     });
     submitButton.setAttribute("disabled", "disabled");
   };
 
-  clearValidation(formElement);
+  clearValidationFunc(formElement);
 
-  return clearValidation;
+  return clearValidationFunc;
 }
-
-
