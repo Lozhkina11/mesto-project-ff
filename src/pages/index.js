@@ -46,6 +46,8 @@ Promise.all([userInfo(), getCards()])
   .then(([userInfo, initialCards]) => {
     const newName = userInfo.name;
     const newDescription = userInfo.about;
+    const userId = userInfo._id;
+
     nameElement.textContent = newName;
     descriptionElement.textContent = newDescription;
     profileImage.style.backgroundImage = `url(${userInfo.avatar})`;
@@ -54,7 +56,8 @@ Promise.all([userInfo(), getCards()])
 
     for (let i = 0; i < initialCards.length; i += 1) {
       const newCard = createCard(
-        initialCards[i].owner._id.includes("7602a9166d2e2ec83e5c2ca3"),
+        // initialCards[i].owner._id.includes("7602a9166d2e2ec83e5c2ca3"),
+        initialCards[i].owner._id === userId,
         initialCards[i].name,
         initialCards[i].link,
         initialCards[i].likes.length,
@@ -63,7 +66,7 @@ Promise.all([userInfo(), getCards()])
         deleteCard,
         initialCards[i]._id,
         initialCards[i].likes.some(
-          (item) => item._id === "7602a9166d2e2ec83e5c2ca3"
+          (item) => item._id === userId
         )
       );
       placesList.appendChild(newCard);
@@ -83,8 +86,9 @@ const updateAvatarPopupForm = document.querySelector(".popup_avatar");
 
 const addCardPopupForm = document.querySelector(".popup__add_card_form");
 
-const cardNameInput = addCardPopupForm.querySelector(".popup__input_type_card-name");
-// console.log(cardNameInput.value, "cardNameInput");
+const cardNameInput = addCardPopupForm.querySelector(
+  ".popup__input_type_card-name"
+);
 const cardLinkInput = addCardPopupForm.querySelector(".popup__input_type_url");
 
 profileEditButton.addEventListener("click", function (event) {
@@ -143,10 +147,10 @@ function handleAddCardFormSubmit(evt) {
     .then((data) => {
       const newCard = createCard(
         true,
-        cardNameInput.value,
-        cardLinkInput.value,
+        data.name,
+        data.link,
         0,
-        getOpenPopupListener(cardNameInput.value, cardLinkInput.value),
+        getOpenPopupListener(data.name, data.link),
         like,
         deleteCard
       );
@@ -182,12 +186,12 @@ addCloseEventListeners(popupAddCard);
 addCloseEventListeners(popupAvatarEditForm);
 
 const validationConfig = {
-  formSelector: ".popup__form", //+
-  inputSelector: ".popup__input", // +
-  submitButtonSelector: ".popup__button", // +
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error", // красный инпут
-  errorClass: "popup__error_visible", // + текст с ошибкой
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
 };
 
 enableValidation(validationConfig);
