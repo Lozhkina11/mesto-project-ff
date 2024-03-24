@@ -84,7 +84,6 @@ export function clearValidation(formElement) {
     formInputs.forEach((input) => {
       hideInputError(input);
     });
-    // прописать логику для класса 'popup__button_disabled'
     submitButton.setAttribute("disabled", "disabled");
   };
 

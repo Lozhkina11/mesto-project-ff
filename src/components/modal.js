@@ -10,7 +10,7 @@ function closeModal(overlay) {
   const formElement = document.querySelector('.popup__form');
   overlay.classList.remove("popup_is-opened"); //добавление плавности на закрытие
   document.removeEventListener('keydown', keyHandler);
-  clearValidation(formElement)
+  // clearValidation(formElement)
 }
 function addCloseEventListeners(overlay) {
   const popupCloseButton = overlay.querySelector(".popup__close");

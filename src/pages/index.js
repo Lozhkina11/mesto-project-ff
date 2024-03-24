@@ -79,6 +79,14 @@ const popupAddCard = document.querySelector(".popup_type_new-card"); // карт
 
 const popupImage = document.querySelector(".popup_type_image");
 
+const updateAvatarPopupForm = document.querySelector(".popup_avatar");
+
+const addCardPopupForm = document.querySelector(".popup__add_card_form");
+
+const cardNameInput = addCardPopupForm.querySelector(".popup__input_type_card-name");
+// console.log(cardNameInput.value, "cardNameInput");
+const cardLinkInput = addCardPopupForm.querySelector(".popup__input_type_url");
+
 profileEditButton.addEventListener("click", function (event) {
   openModal(popupEdit);
   nameInput.value = nameElement.textContent;
@@ -88,14 +96,23 @@ profileEditButton.addEventListener("click", function (event) {
 });
 
 profileButton.addEventListener("click", function (event) {
-  openModal(popupAddCard); // Показываем при клике на кнопку
+  openModal(popupAddCard);
+  const formElement = popupAddCard.querySelector(".popup__form");
+  clearValidation(formElement);
+  cardNameInput.value = "";
+  cardLinkInput.value = "";
 });
 
+// Avatar block
 const avatarUpdateButton = document.querySelector(".popup__update");
-
 const popupAvatarEditForm = document.querySelector(".popup_avatar");
+const avatarInput = document.querySelector(".popup__input_type_avatar");
+
 avatarUpdateButton.addEventListener("click", function (event) {
   openModal(popupAvatarEditForm);
+  const formElement = popupAvatarEditForm.querySelector(".popup__form");
+  clearValidation(formElement);
+  avatarInput.value = "";
 });
 
 function handleFormSubmit(evt) {
@@ -118,16 +135,6 @@ function handleFormSubmit(evt) {
 }
 
 popupForm.addEventListener("submit", handleFormSubmit);
-
-const addCardPopupForm = document.querySelector(
-  ".popup_type_new-card .popup__form"
-);
-const updateAvatarPopupForm = document.querySelector(".popup_avatar");
-
-const cardNameInput = addCardPopupForm.querySelector(
-  ".popup__input_type_card-name"
-);
-const cardLinkInput = addCardPopupForm.querySelector(".popup__input_type_url");
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
@@ -153,7 +160,7 @@ function handleAddCardFormSubmit(evt) {
     .catch((err) => console.error("Ошибка!", err))
     .finally(() => showLoader("#img-save-btn", "Сохранить"));
 }
-const avatarInput = document.querySelector(".popup__input_type_avatar");
+
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
   showLoader("#avatar-save-btn", "Сохранение...");
@@ -175,17 +182,14 @@ addCloseEventListeners(popupAddCard);
 addCloseEventListeners(popupAvatarEditForm);
 
 const validationConfig = {
-  formSelector: '.popup__form',//+
-  inputSelector: '.popup__input',// +
-  submitButtonSelector: '.popup__button',// +
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error', // красный инпут
-  errorClass: 'popup__error_visible' // + текст с ошибкой
- 
+  formSelector: ".popup__form", //+
+  inputSelector: ".popup__input", // +
+  submitButtonSelector: ".popup__button", // +
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error", // красный инпут
+  errorClass: "popup__error_visible", // + текст с ошибкой
 };
 
 enableValidation(validationConfig);
 
-
 updateAvatarPopupForm.addEventListener("submit", handleAvatarFormSubmit);
-
