@@ -56,7 +56,6 @@ Promise.all([userInfo(), getCards()])
 
     for (let i = 0; i < initialCards.length; i += 1) {
       const newCard = createCard(
-        // initialCards[i].owner._id.includes("7602a9166d2e2ec83e5c2ca3"),
         initialCards[i].owner._id === userId,
         initialCards[i].name,
         initialCards[i].link,
