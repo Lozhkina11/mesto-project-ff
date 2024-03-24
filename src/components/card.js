@@ -3,23 +3,19 @@ import { addLike, deleteMyCard, removeLike } from "./api.js";
 const cardTemplate = document.querySelector("#card-template").content;
 
 function like(evt, cardId, likesCount) {
- 
-  if (!evt.target.classList.contains("card__like-button_is-active")) {
-    evt.target.classList.add("card__like-button_is-active");
-    addLike(cardId).then((data) => {
-      likesCount.textContent = data.likes.length;
-    });
-  }
-   else {
-    evt.target.classList.remove("card__like-button_is-active");
-    removeLike(cardId).then((data) => {
-      likesCount.textContent = data.likes.length;
-    });
-  }
+    
+  const likeMethod = evt.target.classList.contains("card__like-button_is-active") ? removeLike : addLike;
+
+  likeMethod(cardId) 
+        .then((data) => {
+           likesCount.textContent = data.likes.length; 
+           evt.target.classList.toggle("card__like-button_is-active") 
+        })
+.catch(err => console.log(err));
+
 }
 function deleteCard(card, cardId) {
-  deleteMyCard(cardId); // удаление карточки в бд
-  card.remove(); // удаление карточки в DOM
+  deleteMyCard(cardId).then(()=> card.remove());
 }
 function createCard(
   isMyCard,
