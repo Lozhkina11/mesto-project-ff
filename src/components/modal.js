@@ -1,17 +1,9 @@
 
-import {clearValidation, FormValidator}  from './validation.js';
+import {clearValidation}  from './validation.js';
 
-function openModal(overlay, formElement) {
+function openModal(overlay) {
   overlay.classList.add("popup_is-opened"); // добавление плавности на открытие
   document.addEventListener('keydown', keyHandler);
-
-  if (formElement) {
-    formElement.querySelectorAll('.popup__input').forEach(input => {
-      input.value = ''; // Устанавливаем значения полей в пустую строку
-    });
-    
-    clearValidation(formElement); // Вызываем clearValidation перед открытием модального окна
-  }
 }
 
 function closeModal(overlay) {
