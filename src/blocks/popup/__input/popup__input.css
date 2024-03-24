@@ -14,10 +14,6 @@
   margin-bottom: 0;
 }
 
-.popup__input:invalid {
-  border-bottom: 1px red solid;
-}
-
 @media screen and (max-width: 568px) {
   .popup__title {
     font-size: 12px;
