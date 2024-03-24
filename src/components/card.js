@@ -37,6 +37,10 @@ function createCard(
 
   if (!isMyCard) {
     buttonDelete.remove();
+  } else{
+    buttonDelete.addEventListener("click", (event) =>
+    deleteCard(event.target.closest(".places__item"), cardId)
+  );
   }
 
   if(isMyLike){
@@ -55,9 +59,6 @@ function createCard(
 
   img.addEventListener("click", openPopupListener);
 
-  buttonDelete.addEventListener("click", (event) =>
-    deleteCard(event.target.closest(".places__item"), cardId)
-  );
   return cardElement;
 }
 
