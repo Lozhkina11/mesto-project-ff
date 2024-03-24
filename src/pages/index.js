@@ -1,5 +1,5 @@
 import("../pages/index.css");
-import { createCard, deleteCard, like } from "../components/card.js";
+import { createCard } from "../components/card.js";
 import {
   openModal,
   closeModal,
@@ -120,8 +120,8 @@ function handleFormSubmit(evt) {
       nameElement.textContent = newName;
       descriptionElement.textContent = newDescription;
 
-      nameInput.value = "";
-      jobInput.value = "";
+      // nameInput.value = "";
+      // jobInput.value = "";
 
       closeModal(popupEdit);
     })
@@ -145,8 +145,8 @@ function handleAddCardFormSubmit(evt) {
       );
       placesList.prepend(newCard);
 
-      cardNameInput.value = "";
-      cardLinkInput.value = "";
+      // cardNameInput.value = "";
+      // cardLinkInput.value = "";
 
       closeModal(popupAddCard);
     })
@@ -161,7 +161,7 @@ function handleAvatarFormSubmit(evt) {
     .then((data) => {
       const newAvatar = data.avatar;
       profileImage.style.backgroundImage = `url(${newAvatar})`;
-      avatarInput.value = "";
+      // avatarInput.value = "";
       closeModal(popupAvatarEditForm);
     })
     .catch((err) => console.error("Ошибка!", err))
