@@ -65,13 +65,6 @@ export const userInfo = () => {
   }).then(handleResponse);
 };
 
-export const userAvatar = () => {
-  return fetch(`${api.baseUrl}/users/me`, {
-    method: "GET",
-    headers: api.headers,
-  }).then(handleResponse);
-};
-
 export const updateUserAvatar = (avatar) => {
   return fetch(`${api.baseUrl}/users/me/avatar`, {
     method: "PATCH",

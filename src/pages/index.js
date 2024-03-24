@@ -23,11 +23,7 @@ function showLoader(usingButton, loaderText) {
   targetButton.textContent = loaderText;
 }
 
-const profileImage = document.querySelector(".profile__image");
 
-userAvatar().then(
-  (data) => (profileImage.style.backgroundImage = `url(${data.avatar})`)
-);
 
 const placesList = document.querySelector(".places__list");
 
@@ -45,7 +41,9 @@ const popupForm = document.querySelector(".popup_type_edit .popup__form");
 const nameInput = popupForm.querySelector(".popup__input_type_name");
 const jobInput = popupForm.querySelector(".popup__input_type_description");
 const nameElement = document.querySelector(".profile__title");
-const descriptionElement = document.querySelector(".profile__description");
+const descriptionElement = document.querySelector(".profile__description")
+const profileImage = document.querySelector(".profile__image");
+
 
 Promise.all([userInfo(), getCards()])
 .then(([userInfo, initialCards]) => {
@@ -53,7 +51,7 @@ Promise.all([userInfo(), getCards()])
   const newDescription = userInfo.about;
   nameElement.textContent = newName;
   descriptionElement.textContent = newDescription;
-
+  profileImage.style.backgroundImage = `url(${userInfo.avatar})`
   nameInput.value = "";
   jobInput.value = "";
  
