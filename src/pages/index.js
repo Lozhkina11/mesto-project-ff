@@ -22,7 +22,6 @@ function showLoader(usingButton, loaderText) {
 
 const placesList = document.querySelector(".places__list");
 
-
 function getOpenPopupListener(titleCard, imgSrc) {
   return function (evt) {
     popupImage.querySelector(".popup__caption").textContent = titleCard;
@@ -59,8 +58,6 @@ Promise.all([userInfo(), getCards()])
         initialCards[i].link,
         initialCards[i].likes.length,
         getOpenPopupListener(initialCards[i].name, initialCards[i].link),
-        like,
-        deleteCard,
         initialCards[i]._id,
         initialCards[i].likes.some((item) => item._id === userId)
       );
@@ -69,11 +66,11 @@ Promise.all([userInfo(), getCards()])
   })
   .catch((error) => console.error("Look at this Error ===>", error));
 
-const profileEditButton = document.querySelector(".profile__edit-button"); // оверлей
-const popupEdit = document.querySelector(".popup_type_edit"); // мод.окно
+const profileEditButton = document.querySelector(".profile__edit-button");
+const popupEdit = document.querySelector(".popup_type_edit");
 
-const profileButton = document.querySelector(".profile__add-button"); // оверлей карточки
-const popupAddCard = document.querySelector(".popup_type_new-card"); // карточка
+const profileButton = document.querySelector(".profile__add-button");
+const popupAddCard = document.querySelector(".popup_type_new-card");
 
 const popupImage = document.querySelector(".popup_type_image");
 
@@ -101,7 +98,6 @@ profileButton.addEventListener("click", function (event) {
   cardNameInput.value = "";
   cardLinkInput.value = "";
 });
-
 
 const avatarUpdateButton = document.querySelector(".popup__update");
 const popupAvatarEditForm = document.querySelector(".popup_avatar");
@@ -145,9 +141,7 @@ function handleAddCardFormSubmit(evt) {
         data.name,
         data.link,
         0,
-        getOpenPopupListener(data.name, data.link),
-        like,
-        deleteCard
+        getOpenPopupListener(data.name, data.link)
       );
       placesList.prepend(newCard);
 

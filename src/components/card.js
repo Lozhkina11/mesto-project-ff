@@ -23,8 +23,6 @@ function createCard(
   linkImg,
   countLikes,
   openPopupListener,
-  like,
-  deleteCard,
   cardId,
   isMyLike,
 ) {
