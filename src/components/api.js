@@ -5,6 +5,18 @@ const api = {
     "Content-Typeapi": "application/json",
   },
 };
+const handleResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+};
+
+export const getCards = () => {
+  return fetch(`${api.baseUrl}/cards`, {
+    headers: api.headers,
+  }).then(handleResponse);
+};
 
 export const addCard = (name, link) => {
   return fetch(`${api.baseUrl}/cards`, {
@@ -14,58 +26,27 @@ export const addCard = (name, link) => {
       name,
       link,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
-};
-
-export const getCards = () => {
-  return fetch(`${api.baseUrl}/cards`, {
-    headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 
 export const deleteMyCard = (cardId) => {
   return fetch(`${api.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 
 export const addLike = (cardId) => {
   return fetch(`${api.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 export const removeLike = (cardId) => {
   return fetch(`${api.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 export const updateUserInfo = (name, about) => {
   return fetch(`${api.baseUrl}/users/me`, {
@@ -75,35 +56,20 @@ export const updateUserInfo = (name, about) => {
       name,
       about,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 export const userInfo = () => {
   return fetch(`${api.baseUrl}/users/me`, {
     method: "GET",
     headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 
 export const userAvatar = () => {
   return fetch(`${api.baseUrl}/users/me`, {
     method: "GET",
     headers: api.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
 
 export const updateUserAvatar = (avatar) => {
@@ -113,10 +79,5 @@ export const updateUserAvatar = (avatar) => {
     body: JSON.stringify({
       avatar,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(handleResponse);
 };
