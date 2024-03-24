@@ -13,7 +13,6 @@ export const enableValidation = ({
     const submitButton = formElement.querySelector(submitButtonSelector); // '.popup__button'
 
     const showInputError = (element, validationMessage) => {
-      // element.classList.add("popup__error_active");
       element.classList.add(inputErrorClass); // 'popup__input_type_error'
       const errorElement = formElement.querySelector(`.${element.id}-error`);
       errorElement.classList.add(errorClass); // красный текст "popup__error_visible"
@@ -21,9 +20,9 @@ export const enableValidation = ({
     };
 
     const hideInputError = (element) => {
-      element.classList.remove("popup__error");
+      element.classList.remove(inputErrorClass);
       const errorElement = formElement.querySelector(`.${element.id}-error`);
-      errorElement.classList.remove("popup__error_active");
+      errorElement.classList.remove(errorClass);
       errorElement.textContent = "";
       element.setCustomValidity("");
     };
@@ -74,9 +73,9 @@ export function clearValidation(formElement) {
   const submitButton = formElement.querySelector(".popup__button"); // есть
 
   const hideInputError = (element) => {
-    element.classList.remove("popup__error");
+    element.classList.remove("popup__input_type_error");
     const errorElement = formElement.querySelector(`.${element.id}-error`);
-    errorElement.classList.remove("popup__error_active");
+    errorElement.classList.remove("popup__error_visible");
     errorElement.textContent = "";
     element.setCustomValidity("");
   };
