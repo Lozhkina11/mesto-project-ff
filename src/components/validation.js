@@ -6,16 +6,16 @@ export const enableValidation = ({
   inputErrorClass,
   errorClass,
 }) => {
-  const formElements = document.querySelectorAll(formSelector); // '.popup__form'
+  const formElements = document.querySelectorAll(formSelector); 
 
   formElements.forEach((formElement) => {
-    const formInputs = formElement.querySelectorAll(inputSelector); // '.popup__input'
-    const submitButton = formElement.querySelector(submitButtonSelector); // '.popup__button'
+    const formInputs = formElement.querySelectorAll(inputSelector); 
+    const submitButton = formElement.querySelector(submitButtonSelector); 
 
     const showInputError = (element, validationMessage) => {
-      element.classList.add(inputErrorClass); // 'popup__input_type_error'
+      element.classList.add(inputErrorClass); 
       const errorElement = formElement.querySelector(`.${element.id}-error`);
-      errorElement.classList.add(errorClass); // красный текст "popup__error_visible"
+      errorElement.classList.add(errorClass); 
       errorElement.textContent = validationMessage;
     };
 
@@ -24,9 +24,8 @@ export const enableValidation = ({
       const errorElement = formElement.querySelector(`.${element.id}-error`);
       errorElement.classList.remove(errorClass);
       errorElement.textContent = "";
-      element.setCustomValidity("");
+      // element.setCustomValidity("");
     };
-
     const isValid = (input) => {
       if (input.validity.patternMismatch) {
         input.setCustomValidity(input.getAttribute("data-pattern-message"));
@@ -53,9 +52,12 @@ export const enableValidation = ({
       });
 
       if (allInputsValid) {
-        submitButton.removeAttribute("disabled");
-      } else {
-        submitButton.setAttribute("disabled", "disabled");
+        // submitButton.removeAttribute("disabled")
+        submitButton.classList.remove(inactiveButtonClass); // "popup__button_disabled"
+      } 
+      else {
+        // submitButton.setAttribute("disabled", "disabled");
+        submitButton.classList.add(inactiveButtonClass); //"popup__button_disabled"
       }
     };
 
@@ -77,39 +79,16 @@ export function clearValidation(formElement) {
     const errorElement = formElement.querySelector(`.${element.id}-error`);
     errorElement.classList.remove("popup__error_visible");
     errorElement.textContent = "";
-    element.setCustomValidity("");
   };
 
   const clearValidationFunc = () => {
     formInputs.forEach((input) => {
       hideInputError(input);
     });
-    submitButton.setAttribute("disabled", "disabled");
+    submitButton.classList.add("popup__button_disabled")
   };
 
   clearValidationFunc(formElement);
 
   return clearValidationFunc;
 }
-// export function clearValidation(formElement) {
-//   const formInputs = formElement.querySelectorAll(".popup__input"); // есть
-//   const submitButton = formElement.querySelector(".popup__button"); // нет
-//   const hideInputError = (element) => {
-//     element.classList.remove("popup__error");
-//     const errorElement = formElement.querySelector(`.${element.id}-error`);
-//     errorElement.classList.remove("popup__error_active");
-//     errorElement.textContent = "";
-//     element.setCustomValidity("");
-//   };
-
-//   const clearValidationFunc = () => {
-//     formInputs.forEach((input) => {
-//       hideInputError(input);
-//     });
-//     submitButton.setAttribute("disabled", "disabled");
-//   };
-
-//   clearValidationFunc(formElement);
-
-//   return clearValidationFunc;
-// }
