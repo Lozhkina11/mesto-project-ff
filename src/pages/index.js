@@ -97,15 +97,11 @@ profileEditButton.addEventListener("click", function (event) {
   openModal(popupEdit);
   nameInput.value = nameElement.textContent;
   jobInput.value = descriptionElement.textContent;
-  // const formElement = popupEdit.querySelector(".popup__form");
-  // clearValidation(formElement);
   clearValidation(validationConfig);
 });
 
 profileButton.addEventListener("click", function (event) {
   openModal(popupAddCard);
-  // const formElement = popupAddCard.querySelector(".popup__form");
-  // clearValidation(formElement);
   clearValidation(validationConfig);
   cardNameInput.value = "";
   cardLinkInput.value = "";
@@ -117,8 +113,6 @@ const avatarInput = document.querySelector(".popup__input_type_avatar");
 
 avatarUpdateButton.addEventListener("click", function (event) {
   openModal(popupAvatarEditForm);
-  // const formElement = popupAvatarEditForm.querySelector(".popup__form");
-  // clearValidation(formElement);
   clearValidation(validationConfig);
   avatarInput.value = "";
 });

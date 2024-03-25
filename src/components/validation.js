@@ -53,10 +53,10 @@ export const enableValidation = ({
 
       if (allInputsValid) {
         // submitButton.removeAttribute("disabled")
-        submitButton.classList.remove(inactiveButtonClass); // "popup__button_disabled"
+        submitButton.classList.remove(inactiveButtonClass); 
       } else {
         // submitButton.setAttribute("disabled", "disabled");
-        submitButton.classList.add(inactiveButtonClass); //"popup__button_disabled"
+        submitButton.classList.add(inactiveButtonClass); 
       }
     };
 
@@ -77,20 +77,15 @@ export function clearValidation({
   inputErrorClass,
   errorClass,
 }) {
-  const formElements = document.querySelectorAll(formSelector); // ".popup__form"
+  const formElements = document.querySelectorAll(formSelector);
 
   formElements.forEach((formElement) => {
-    const formInputs = formElement.querySelectorAll(inputSelector); // ".popup__input"
-    const submitButton = formElement.querySelector(submitButtonSelector); //  ".popup__button"
+    const formInputs = formElement.querySelectorAll(inputSelector);
+    const submitButton = formElement.querySelector(submitButtonSelector);
 
     formInputs.forEach((input) => {
-      hideInputError(
-        input,
-        inputErrorClass, //"popup__input_type_error"
-        errorClass, //"popup__error_visible",
-        formElement
-      );
+      hideInputError(input, inputErrorClass, errorClass, formElement);
     });
-    submitButton.classList.add(inactiveButtonClass); // "popup__button_disabled"
+    submitButton.classList.add(inactiveButtonClass);
   });
 }
