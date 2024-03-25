@@ -5,6 +5,11 @@ const hideInputError = (element, inputErrorClass, errorClass, formElement) => {
   errorElement.textContent = "";
 };
 
+const disableSubmitButton = (submitButton, inactiveButtonClass) => {
+  submitButton.setAttribute("disabled", "disabled");
+  submitButton.classList.add(inactiveButtonClass);
+};
+
 export const enableValidation = ({
   formSelector,
   inputSelector,
@@ -52,11 +57,10 @@ export const enableValidation = ({
       });
 
       if (allInputsValid) {
-        // submitButton.removeAttribute("disabled")
-        submitButton.classList.remove(inactiveButtonClass); 
+        submitButton.removeAttribute("disabled");
+        submitButton.classList.remove(inactiveButtonClass);
       } else {
-        // submitButton.setAttribute("disabled", "disabled");
-        submitButton.classList.add(inactiveButtonClass); 
+        disableSubmitButton(submitButton, inactiveButtonClass);
       }
     };
 
@@ -86,6 +90,6 @@ export function clearValidation({
     formInputs.forEach((input) => {
       hideInputError(input, inputErrorClass, errorClass, formElement);
     });
-    submitButton.classList.add(inactiveButtonClass);
+    disableSubmitButton(submitButton, inactiveButtonClass);
   });
 }
