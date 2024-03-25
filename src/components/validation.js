@@ -69,17 +69,28 @@ export const enableValidation = ({
   });
 };
 
-export function clearValidation(formElement) {
-  const formInputs = formElement.querySelectorAll(".popup__input"); // есть
-  const submitButton = formElement.querySelector(".popup__button"); // есть
+export function clearValidation({
+  formSelector,
+  inputSelector,
+  submitButtonSelector,
+  inactiveButtonClass,
+  inputErrorClass,
+  errorClass,
+}) {
+  const formElements = document.querySelectorAll(formSelector); // ".popup__form"
 
-  formInputs.forEach((input) => {
-    hideInputError(
-      input,
-      "popup__input_type_error",
-      "popup__error_visible",
-      formElement
-    );
+  formElements.forEach((formElement) => {
+    const formInputs = formElement.querySelectorAll(inputSelector); // ".popup__input"
+    const submitButton = formElement.querySelector(submitButtonSelector); //  ".popup__button"
+
+    formInputs.forEach((input) => {
+      hideInputError(
+        input,
+        inputErrorClass, //"popup__input_type_error"
+        errorClass, //"popup__error_visible",
+        formElement
+      );
+    });
+    submitButton.classList.add(inactiveButtonClass); // "popup__button_disabled"
   });
-  submitButton.classList.add("popup__button_disabled");
 }

@@ -20,6 +20,16 @@ function showLoader(usingButton, loaderText) {
   targetButton.textContent = loaderText;
 }
 
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
 const placesList = document.querySelector(".places__list");
 
 function getOpenPopupListener(titleCard, imgSrc) {
@@ -87,14 +97,16 @@ profileEditButton.addEventListener("click", function (event) {
   openModal(popupEdit);
   nameInput.value = nameElement.textContent;
   jobInput.value = descriptionElement.textContent;
-  const formElement = popupEdit.querySelector(".popup__form");
-  clearValidation(formElement);
+  // const formElement = popupEdit.querySelector(".popup__form");
+  // clearValidation(formElement);
+  clearValidation(validationConfig);
 });
 
 profileButton.addEventListener("click", function (event) {
   openModal(popupAddCard);
-  const formElement = popupAddCard.querySelector(".popup__form");
-  clearValidation(formElement);
+  // const formElement = popupAddCard.querySelector(".popup__form");
+  // clearValidation(formElement);
+  clearValidation(validationConfig);
   cardNameInput.value = "";
   cardLinkInput.value = "";
 });
@@ -105,8 +117,9 @@ const avatarInput = document.querySelector(".popup__input_type_avatar");
 
 avatarUpdateButton.addEventListener("click", function (event) {
   openModal(popupAvatarEditForm);
-  const formElement = popupAvatarEditForm.querySelector(".popup__form");
-  clearValidation(formElement);
+  // const formElement = popupAvatarEditForm.querySelector(".popup__form");
+  // clearValidation(formElement);
+  clearValidation(validationConfig);
   avatarInput.value = "";
 });
 
@@ -174,14 +187,7 @@ addCloseEventListeners(popupImage);
 addCloseEventListeners(popupAddCard);
 addCloseEventListeners(popupAvatarEditForm);
 
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+
 
 enableValidation(validationConfig);
 
